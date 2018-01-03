@@ -30,6 +30,32 @@ class Dynamo {
           callback(err, null)
         });
     }
+    
+    fetchData(index, item, value){
+        
+        var params = {
+            TableName : this.tableName,
+            IndexName: index,
+            ScanIndexForward: false,
+            Limit: 3,
+            KeyConditionExpression: item+" = :id",
+            ExpressionAttributeValues: {
+                ":id":{'S': value}
+            }
+        };
+        
+        dynamodb.query(params, function(err, data) {
+            if (err) {
+                console.error("Unable to query. Error:", JSON.stringify(err, null, 2));
+            } else {
+                console.log("Query succeeded.");
+                data.Items.forEach(function(item) {
+                    console.log(" -", item);
+                });
+            }
+        });
+
+    }
 }
 
 module.exports = Dynamo;
