@@ -22,14 +22,28 @@ var dynamo = function (tableName, event){
    var d = new Dynamo();
    d.setTableName(tableName);
    
-   //fetch the data request (pageId-index: Indexes Name, pageId: Partition Key, tarang: Value which need to be search)
-   var data = d.fetchData("pageId-index", "pageId", "tarang");
+   //fetch the data
+   d.fetchData("pageId-index", "pageId", "tarang");
+   //scan the data and display
+   d.scanData();
+   //get the data based on condition
+   d.getData("123"); //based on commentId
    
-   d.insertData(event.commentId, event.userName, event.pageId, event.message, function(err, data){ 
-       if (err) {
-           console.log(err, err.stack);
+   /*
+   //Insert Data
+   {
+      "commentId": "123",
+      "pageId": "1",
+      "userName": "tarang",
+      "message": "I really enjoyed this Blog!!",
+      "otherKeys": "otherValues"
+    }
+   */
+  d.insertData(event.commentId, event.userName, event.pageId, event.message, function(err, data){ 
+      if (err) {
+          console.log(err, err.stack);
         } else {
-           console.log(data);
+          console.log(data);
         }
     });
 }
