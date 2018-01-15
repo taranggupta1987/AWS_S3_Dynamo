@@ -44,3 +44,12 @@ Dummy Data for testing using AWS Test...
 
 
 *NOTE: Make sure you have appropriate rights for Lambda and Dynamo in IAM.*
+
+Error while filering the data using querry command.
+---------------------------
+
+Response Message Error : **One or more parameter values were invalid: Condition parameter type does not match schema type**
+
+Solution
+ - change ExpressionAttributeValues declaration from
+                **":id":{'S': "60771e19-f9b7-11e7-994b-615c3da32b86"} to ":id":"60771e19-f9b7-11e7-994b-615c3da32b86"**
